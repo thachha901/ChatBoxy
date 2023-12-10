@@ -1,60 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXTextArea?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="432.0" styleClass="hbox" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chatboxy.Mess">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chatboxy.Mess">
    <children>
-      <AnchorPane layoutX="-10.0" prefHeight="41.0" prefWidth="441.0" styleClass="top_panel" stylesheets="@style.css">
-         <children>
-            <Button layoutX="412.0" layoutY="5.0" mnemonicParsing="false" onAction="#Exit" styleClass="exit_button" stylesheets="@style.css" text="X">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="root" layoutX="1.0" layoutY="41.0" prefHeight="651.0" prefWidth="439.0" style="-fx-background-color: #E3F7E9;" stylesheets="@style.css">
-         <children>
-            <ScrollPane fx:id="scroll" focusTraversable="false" layoutY="68.0" prefHeight="474.0" prefWidth="432.0" styleClass="scroll" stylesheets="@style.css">
-               <content>
-                  <VBox fx:id="vbox" prefHeight="476.0" prefWidth="444.0" styleClass="scroll" stylesheets="@style.css">
-                     <padding>
-                        <Insets bottom="10.0" top="10.0" />
-                     </padding></VBox>
-               </content>
-            </ScrollPane>
-            <JFXTextArea fx:id="text" layoutX="14.0" layoutY="565.0" prefHeight="71.0" prefWidth="319.0" style="-fx-background-color: #88F7DF;" wrapText="true">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </JFXTextArea>
-            <Button layoutX="8.0" layoutY="7.0" mnemonicParsing="false" onAction="#Switch" prefHeight="32.0" prefWidth="43.0" styleClass="switch_button" stylesheets="@style.css">
+      <ImageView fitHeight="610.0" fitWidth="410.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../pic/chatbg.jpg" />
+         </image>
+      </ImageView>
+      <VBox layoutY="10.0" prefHeight="600.0" prefWidth="410.0" stylesheets="@style.css">
+         <HBox prefHeight="138.0" prefWidth="400.0" />
+         <HBox prefHeight="186.0" prefWidth="400.0" />
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="23:59">
+            <VBox.margin>
+               <Insets left="185.0" right="150.0" top="100.0" />
+            </VBox.margin>
+         </Text>
+         <TextField stylesheets="@style.css" text="Hey !!!">
+            <styleClass>
+               <String fx:value="gray-background" />
+               <String fx:value="radius" />
+            </styleClass>
+            <font>
+               <Font size="15.0" />
+            </font>
+            <VBox.margin>
+               <Insets left="50.0" right="300.0" top="50.0" />
+            </VBox.margin>
+         </TextField>
+         <TextField prefHeight="46.0" prefWidth="235.0" stylesheets="@style.css" text="Watsup, men ?">
+            <VBox.margin>
+               <Insets left="280.0" right="20.0" top="25.0" />
+            </VBox.margin>
+            <styleClass>
+               <String fx:value="gray-background" />
+               <String fx:value="radius" />
+            </styleClass>
+            <font>
+               <Font size="15.0" />
+            </font>
+         </TextField>
+         <TextField stylesheets="@style.css" text="Just miss you &lt;3">
+            <styleClass>
+               <String fx:value="gray-background" />
+               <String fx:value="radius" />
+            </styleClass>
+            <VBox.margin>
+               <Insets left="50.0" right="250.0" top="25.0" />
+            </VBox.margin>
+         </TextField>
+         <ListView fx:id="chatListView" prefHeight="363.0" prefWidth="410.0" styleClass="transparent-background" stylesheets="@style.css" />
+         <HBox fillHeight="false" prefHeight="40.0" prefWidth="400.0">
+            <TextField fx:id="messageField" prefHeight="35.0" prefWidth="346.0" promptText="Type something to send...">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin></TextField>
+            <Button onAction="#sendMessage" prefHeight="67.0" prefWidth="54.0" styleClass="transparent-background" stylesheets="@style.css">
                <graphic>
-                  <ImageView fx:id="sw" fitHeight="47.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../pic/10982e396215d9765ffbc7a1838e9796-modified.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button layoutX="349.0" layoutY="573.0" mnemonicParsing="false" onAction="#Send" prefHeight="32.0" prefWidth="39.0" styleClass="switch_button" stylesheets="@style.css">
-               <graphic>
-                  <ImageView fitHeight="48.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="62.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../pic/send.png" />
                      </image>
                   </ImageView>
                </graphic>
-            </Button>
+               <HBox.margin>
+                  <Insets bottom="3.0" />
+               </HBox.margin></Button>
+            <VBox.margin>
+               <Insets bottom="15.0" />
+            </VBox.margin>
+         </HBox>
+         <Pane prefHeight="5.0" prefWidth="600.0" styleClass="gray-background" stylesheets="@style.css" />
+      </VBox>
+      <HBox prefHeight="63.0" prefWidth="410.0" AnchorPane.bottomAnchor="540.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="61.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../pic/dm.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Lover" wrappingWidth="122.98307228088379">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="5.0" top="20.0" />
+               </HBox.margin>
+            </Text>
+            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../../../pic/call.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="50.0" top="15.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../pic/video.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+            </ImageView>
          </children>
-      </AnchorPane>
+      </HBox>
+      <Pane layoutY="69.0" prefHeight="8.0" prefWidth="410.0" styleClass="gray-background" stylesheets="@style.css" />
    </children>
 </AnchorPane>

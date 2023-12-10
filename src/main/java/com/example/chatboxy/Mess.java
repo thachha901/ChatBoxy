@@ -1,131 +1,52 @@
+// ChatController.java
 package com.example.chatboxy;
 
-import com.jfoenix.controls.JFXTextArea;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
-
-public class Mess implements Initializable {
+public class Mess {
     @FXML
-    VBox vbox = new VBox(5);
+    private ListView<HBox> chatListView;
+
     @FXML
-    ScrollPane scroll;
+    private TextField messageField;
+
     @FXML
-    JFXTextArea text;
-    @FXML
-    AnchorPane root;
-    @FXML
-    ImageView sw;
-    public static AnchorPane groot = null;
-    private Pos pos;
-    private String addStyle;
-    private ImageView icon1 = null;
-    private ImageView icon2 = null;
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        groot = root;
-
-        scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scroll.setFitToWidth(true);
-        //scroll.setDisable(true);
-
-        vbox.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                scroll.setVvalue((Double)t1);
-            }
-        });
-
-        text.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER) {
-                try{ Send(new ActionEvent()); }
-                catch (Exception err) {};
-            }
-        });
-
-        pos = Pos.CENTER_RIGHT;
-        addStyle = "send_text";
-        try {
-            InputStream stream = new FileInputStream("src/main/resources/com/example/chatboxy/pic/Harry_Potter.png");
-            Image image = new Image(stream, 35, 35,false,false);
-            icon1 = new ImageView(image);
-            InputStream stream2 = new FileInputStream("src/main/resources/com/example/chatboxy/pic/attach.png");
-            Image image2 = new Image(stream2, 35, 35,false,false);
-            icon2 = new ImageView(image2);
-        } catch (FileNotFoundException e) {
-            System.out.print(111);
+    private void sendMessage(ActionEvent event) {
+        String message = messageField.getText();
+        if (!message.isEmpty()) {
+            HBox messageBox = createMessageBox("You", message);
+            chatListView.getItems().add(messageBox);
+            messageField.clear();
         }
     }
 
-    public void Switch (ActionEvent event) {
-        if(pos == Pos.CENTER_RIGHT) {
-            pos = Pos.CENTER_LEFT;
-            addStyle = "receive_text";
-            sw.setImage(icon2.getImage());
+    private HBox createMessageBox(String sender, String message) {
+        HBox messageBox = new HBox(10);
+
+        // Ảnh đại diện
+        ImageView avatarImageView = new ImageView(new Image(ClassLoader.getSystemResource("pic/dm.png").toExternalForm()));
+
+        avatarImageView.setFitWidth(50);
+        avatarImageView.setFitHeight(50);
+
+        // Nội dung tin nhắn
+        HBox messageContent = new HBox(5);
+        messageContent.getChildren().add(new ImageView(new Image(getClass().getResource("/pic/" + sender.toLowerCase() + "dm.png").toExternalForm())));
+        messageContent.getChildren().add(new javafx.scene.control.Label(message));
+
+        if (sender.equals("You")) {
+            messageBox.getChildren().addAll(messageContent, avatarImageView);
+        } else {
+            messageBox.getChildren().addAll(avatarImageView, messageContent);
         }
-        else {
-            pos = Pos.CENTER_RIGHT;
-            addStyle = "send_text";
-            sw.setImage(icon1.getImage());
-        }
+
+        return messageBox;
     }
 
-    public void Send(ActionEvent event) throws Exception{
-        if(Objects.equals(text.getText().trim(), "")) return;
-        String mes = text.getText().trim();
-        HBox hBox = new HBox(10);
-        hBox.setAlignment(pos);
-        hBox.setPadding(new Insets(5,5,5,10));
-
-        Text tex = new Text(mes);
-        TextFlow flow = new TextFlow(tex);
-        flow.getStylesheets().add(getClass().getResource("style.css").toString());
-        flow.getStyleClass().add(addStyle);
-        flow.setPadding(new Insets(5,10,5,10));
-        tex.setFill(Color.BLACK);
-        tex.setFont(new Font("Arial", 20));
-
-        if(pos == Pos.CENTER_RIGHT) {
-            hBox.getChildren().add(flow);
-            hBox.getChildren().add(new ImageView(icon1.getImage()));
-        }
-        else {
-            hBox.getChildren().add(new ImageView(icon2.getImage()));
-            hBox.getChildren().add(flow);
-        }
-        vbox.getChildren().add(hBox);
-        text.clear();
-    }
-
-
-    public void Exit(ActionEvent event) throws Exception {
-        Init.exit(event);
-    }
 }
