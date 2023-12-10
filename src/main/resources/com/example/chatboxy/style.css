@@ -1,0 +1,57 @@
+.exit_button
+{
+    -fx-background-color: #F0CCE6;
+    -fx-background-radius: 10 10 10 10;
+}
+.exit_button:hover
+{
+    -fx-background-color: #def3f6;
+    -fx-background-radius: 10 10 10 10;
+}
+.exit_button:pressed
+{
+    -fx-background-color: #345da7;
+    -fx-background-radius: 10 10 10 10;
+}
+.top_panel
+{
+    -fx-background-color: linear-gradient(to left, #F0CCE6, #8497DB);
+}
+.send_text
+{
+    -fx-background-color: #F0CCE6;
+    -fx-background-radius: 10 10 10 10;
+    -fx-alignment: left;
+}
+.receive_text
+{
+    -fx-background-color: #8497DB;
+    -fx-background-radius: 10 10 10 10;
+}
+.scroll:focused
+{
+    -fx-focus-color : transparent;
+}
+.scroll
+{
+    /*-fx-background-color: #69CEAE;*/
+}
+.switch_button
+{
+    -fx-background-color: transparent;
+    -fx-background-radius: 10 10 10 10;
+}
+.switch_button:hover
+{
+    -fx-background-color: #465160;
+    -fx-background-radius: 10 10 10 10;
+}
+.switch_button:pressed
+{
+    -fx-background-color: #3E444C;
+    -fx-background-radius: 10 10 10 10;
+}
+.hbox {
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
